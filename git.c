@@ -336,7 +336,7 @@ git_update_ref (char *sha1, char *type, char *name)
     char    *command;
     int	    n;
 
-    command = git_format_command ("git-update-ref 'refs/%s/%s' '%s'",
+    command = git_format_command ("git update-ref 'refs/%s/%s' '%s'",
 				  type, name, sha1);
     if (!command)
 	return 0;
@@ -394,7 +394,7 @@ git_mktag (rev_commit *commit, char *name)
 	return NULL;
     }
 
-    command = git_format_command ("git-mktag < '%s'", filename);
+    command = git_format_command ("git mktag < '%s'", filename);
     if (!command) {
 	unlink (filename);
 	return NULL;
@@ -524,7 +524,7 @@ git_end_pack (char *pack_file, char *pack_dir)
 
     if (fclose (packf) == EOF)
 	return;
-    command = git_format_command ("git-pack-objects -q --non-empty .tmp-pack < '%s'", 
+    command = git_format_command ("git pack-objects -q --non-empty .tmp-pack < '%s'", 
 				  pack_file);
     if (!command) {
 	unlink (pack_file);
@@ -558,7 +558,7 @@ git_end_pack (char *pack_file, char *pack_dir)
     free (dst_pack_pack);
     free (dst_pack_idx);
     
-    (void) git_system ("git-prune-packed");
+    (void) git_system ("git prune-packed");
     reprepare_packed_git ();
 }
 
@@ -572,7 +572,7 @@ git_pack_directory (void)
 	char    *git_dir;
 	char	*objects_dir;
 	
-	git_dir = git_system_to_string ("git-rev-parse --git-dir");
+	git_dir = git_system_to_string ("git rev-parse --git-dir");
 	if (!git_dir)
 	    return NULL;
 	objects_dir = git_format_command ("%s/objects", git_dir);
